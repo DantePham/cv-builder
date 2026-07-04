@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test PDF Export</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .test-cv {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%);
+            color: white;
+            padding: 30px;
+            margin: -20px -20px 20px -20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+        
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            margin: 20px 0;
+        }
+        
+        .section h2 {
+            color: #29B6F6;
+            border-bottom: 2px solid #29B6F6;
+            padding-bottom: 5px;
+        }
+        
+        .info-item {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        button {
+            background: #29B6F6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background: #0288D1;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">PDF Export Test</h1>
+    <p style="text-align: center;">Kiểm tra xem PDF export có hoạt động không</p>
+    
+    <div style="text-align: center; margin: 20px;">
+        <button onclick="exportSimplePDF()">📥 Export PDF</button>
+        <button onclick="testConsole()">🔍 Test Console</button>
+    </div>
+
+    <div id="cvContent" class="test-cv">
+        <div class="header">
+            <h1>Phạm Thị Thu Thủy</h1>
+            <p>Laboratory Staff</p>
+        </div>
+        
+        <div class="section">
+            <h2>👤 Thông Tin Cá Nhân</h2>
+            <div class="info-item">📅 <strong>Ngày sinh:</strong> 10/06/1992</div>
+            <div class="info-item">📧 <strong>Email:</strong> thuthuy@example.com</div>
+            <div class="info-item">📞 <strong>Điện thoại:</strong> 0123456789</div>
+            <div class="info-item">📍 <strong>Địa chỉ:</strong> Bình Dương, Việt Nam</div>
+        </div>
+        
+        <div class="section">
+            <h2>💼 Kinh Nghiệm Làm Việc</h2>
+            <div class="info-item">
+                <strong>QC Staff</strong> - Công ty ABC<br>
+                <em>01/2020 - 12/2022</em><br>
+                Kiểm tra chất lượng sản phẩm, lập báo cáo
+            </div>
+            <div class="info-item">
+                <strong>QC Line Staff</strong> - Công ty XYZ<br>
+                <em>01/2018 - 12/2019</em><br>
+                Giám sát chất lượng trên dây chuyền sản xuất
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎓 Học Vấn</h2>
+            <div class="info-item">
+                <strong>ĐH Công Nghiệp Thực Phẩm TP.HCM</strong><br>
+                <em>2010 - 2014</em><br>
+                Cử nhân Công Nghệ Thực Phẩm
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🏆 Chứng Chỉ</h2>
+            <div class="info-item">✓ Microsoft Office Specialist</div>
+            <div class="info-item">✓ English Level B</div>
+        </div>
+        
+        <div class="section">
+            <h2>💪 Kỹ Năng</h2>
+            <div class="info-item">• Kiểm tra chất lượng</div>
+            <div class="info-item">• Phân tích dữ liệu</div>
+            <div class="info-item">• Làm việc nhóm</div>
+            <div class="info-item">• MS Office</div>
+        </div>
+    </div>
+
+    <script>
+        function testConsole() {
+            const cv = document.getElementById('cvContent');
+            console.log('CV Element:', cv);
+            console.log('Width:', cv.offsetWidth, 'px');
+            console.log('Height:', cv.offsetHeight, 'px');
+            console.log('Display:', window.getComputedStyle(cv).display);
+            console.log('Visibility:', window.getComputedStyle(cv).visibility);
+            console.log('Background:', window.getComputedStyle(cv).background);
+            alert('Kiểm tra Console (F12) để xem thông tin!');
+        }
+
+        function exportSimplePDF() {
+            const element = document.getElementById('cvContent');
+            const fileName = 'Test_CV_Export.pdf';
+
+            console.log('🔄 Bắt đầu export PDF...');
+            console.log('Element:', element);
+            console.log('Dimensions:', element.offsetWidth, 'x', element.offsetHeight);
+
+            const opt = {
+                margin: 10,
+                filename: fileName,
+                image: { 
+                    type: 'jpeg', 
+                    quality: 0.98 
+                },
+                html2canvas: {
+                    scale: 2,
+                    logging: true,
+                    backgroundColor: '#ffffff'
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    console.log('✅ PDF đã export thành công!');
+                    alert('✅ PDF đã được tải xuống!');
+                })
+                .catch(err => {
+                    console.error('❌ Lỗi:', err);
+                    alert('❌ Lỗi khi export PDF:\n' + err.message);
+                });
+        }
+    </script>
+</body>
+</html>

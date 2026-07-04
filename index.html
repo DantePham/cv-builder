@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder - Tạo CV Chuyên Nghiệp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h1>🎯 CV Builder Pro</h1>
+                    <p>Tạo CV chuyên nghiệp với đầy đủ thông tin trong vài phút</p>
+                </div>
+                <div id="headerAuth" style="display: flex; gap: 10px;">
+                    <a href="login.html" class="btn-secondary" id="btnLogin" style="display: inline-block; padding: 10px 20px; text-decoration: none; border-radius: 8px; font-size: 0.9em;">
+                        🔐 Đăng Nhập
+                    </a>
+                    <a href="dashboard.html" class="btn-primary" id="btnDashboard" style="display: none; padding: 10px 20px; text-decoration: none; border-radius: 8px; font-size: 0.9em;">
+                        📊 Dashboard
+                    </a>
+                </div>
+            </div>
+            <div style="margin-top: 20px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="builder.html" class="btn-primary" style="display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 25px;">
+                    ✨ Tạo CV Mới
+                </a>
+                <a href="upload-cv.html" class="btn-secondary" style="display: inline-block; padding: 12px 25px; text-decoration: none; border-radius: 25px;">
+                    📤 Upload CV PDF
+                </a>
+            </div>
+        </header>
+
+        <!-- Step Navigation -->
+        <div class="steps">
+            <div class="step active" data-step="1">
+                <span class="step-number">1</span>
+                <span class="step-title">Chọn Template</span>
+            </div>
+            <div class="step" data-step="2">
+                <span class="step-number">2</span>
+                <span class="step-title">Điền Thông Tin</span>
+            </div>
+            <div class="step" data-step="3">
+                <span class="step-number">3</span>
+                <span class="step-title">Xem & Xuất</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Template Selection -->
+        <div id="step1" class="step-content active">
+            <h2>Chọn Template CV</h2>
+            <div class="template-grid">
+                <div class="template-card" data-template="professional">
+                    <div class="template-preview professional-preview">
+                        <div class="preview-sidebar-left"></div>
+                        <div class="preview-main-right">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <h3>Professional</h3>
+                    <p>Chuyên nghiệp, đầy đủ thông tin</p>
+                    <button class="btn-select">Chọn</button>
+                </div>
+
+                <div class="template-card" data-template="modern">
+                    <div class="template-preview modern-preview">
+                        <div class="preview-header"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <h3>Modern</h3>
+                    <p>Hiện đại, 2 cột</p>
+                    <button class="btn-select">Chọn</button>
+                </div>
+
+                <div class="template-card" data-template="elegant">
+                    <div class="template-preview elegant-preview">
+                        <div class="preview-top"></div>
+                        <div class="preview-columns">
+                            <div class="preview-col"></div>
+                            <div class="preview-col"></div>
+                        </div>
+                    </div>
+                    <h3>Elegant</h3>
+                    <p>Thanh lịch, sang trọng</p>
+                    <button class="btn-select">Chọn</button>
+                </div>
+
+                <div class="template-card" data-template="creative">
+                    <div class="template-preview creative-preview">
+                        <div class="preview-circle"></div>
+                        <div class="preview-content">
+                            <div class="preview-line"></div>
+                            <div class="preview-line short"></div>
+                        </div>
+                    </div>
+                    <h3>Creative</h3>
+                    <p>Sáng tạo, nổi bật</p>
+                    <button class="btn-select">Chọn</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Form Input -->
+        <div id="step2" class="step-content">
+            <h2>Điền Thông Tin Của Bạn</h2>
+            <form id="cvForm">
+                <!-- Personal Info -->
+                <div class="form-section">
+                    <h3>� Thông Tin Cá Nhân</h3>
+                    <div class="form-grid">
+                        <input type="text" id="fullName" placeholder="Họ và tên *" required>
+                        <input type="text" id="title" placeholder="Chức danh / Vị trí *" required>
+                        <input type="date" id="dateOfBirth" placeholder="Ngày sinh">
+                        <select id="gender">
+                            <option value="">Giới tính</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                            <option value="Other">Khác</option>
+                        </select>
+                        <input type="email" id="email" placeholder="Email *" required>
+                        <input type="tel" id="phone" placeholder="Số điện thoại *" required>
+                        <input type="text" id="address" placeholder="Địa chỉ đầy đủ">
+                        <input type="url" id="linkedin" placeholder="LinkedIn URL">
+                        <input type="url" id="website" placeholder="Website / Portfolio">
+                        <input type="text" id="github" placeholder="GitHub (nếu có)">
+                    </div>
+                </div>
+
+                <!-- Objective -->
+                <div class="form-section">
+                    <h3>🎯 Mục Tiêu Nghề Nghiệp</h3>
+                    <textarea id="objective" placeholder="Mô tả mục tiêu nghề nghiệp của bạn (2-4 câu)" rows="4"></textarea>
+                </div>
+
+                <!-- Profile / Summary -->
+                <div class="form-section">
+                    <h3>📝 Giới Thiệu Bản Thân</h3>
+                    <textarea id="profile" placeholder="Giới thiệu ngắn gọn về bản thân (3-5 câu)" rows="4"></textarea>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="form-section">
+                    <h3>💼 Kinh Nghiệm Làm Việc</h3>
+                    <div id="experienceList"></div>
+                    <button type="button" class="btn-add" onclick="addExperience()">+ Thêm Kinh Nghiệm</button>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3>🎓 Học Vấn</h3>
+                    <div id="educationList"></div>
+                    <button type="button" class="btn-add" onclick="addEducation()">+ Thêm Học Vấn</button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3>⚡ Kỹ Năng Chuyên Môn</h3>
+                    <label style="font-size: 0.9em; color: #666; margin-bottom: 10px; display: block;">Work Skills:</label>
+                    <textarea id="workSkills" placeholder="VD: Dynamic, enthusiastic, organized, with a strong sense of responsibility..." rows="3"></textarea>
+
+                    <label style="font-size: 0.9em; color: #666; margin: 15px 0 10px 0; display: block;">Technical Skills:</label>
+                    <textarea id="technicalSkills" placeholder="Nhập kỹ năng kỹ thuật, cách nhau bởi dấu phẩy (VD: JavaScript, React, SQL, Python)" rows="2"></textarea>
+
+                    <label style="font-size: 0.9em; color: #666; margin: 15px 0 10px 0; display: block;">Soft Skills:</label>
+                    <textarea id="softSkills" placeholder="Kỹ năng mềm (VD: Communication, Teamwork, Problem Solving, Time Management)" rows="2"></textarea>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-section">
+                    <h3>🏆 Chứng Chỉ</h3>
+                    <div id="certificationsList"></div>
+                    <button type="button" class="btn-add" onclick="addCertification()">+ Thêm Chứng Chỉ</button>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-section">
+                    <h3>🎨 Sở Thích</h3>
+                    <textarea id="interests" placeholder="Nhập sở thích, cách nhau bởi dấu phẩy (VD: Reading books, Traveling, Cooking, Sports)" rows="2"></textarea>
+                </div>
+
+                <!-- Languages -->
+                <div class="form-section">
+                    <h3>🌍 Ngôn Ngữ</h3>
+                    <div id="languagesList"></div>
+                    <button type="button" class="btn-add" onclick="addLanguage()">+ Thêm Ngôn Ngữ</button>
+                </div>
+
+                <!-- References -->
+                <div class="form-section">
+                    <h3>📞 Người Tham Khảo</h3>
+                    <div id="referencesList"></div>
+                    <button type="button" class="btn-add" onclick="addReference()">+ Thêm Người Tham Khảo</button>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" onclick="prevStep()">← Quay Lại</button>
+                    <button type="button" class="btn-primary" onclick="nextStep()">Tiếp Theo →</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Step 3: Preview & Export -->
+        <div id="step3" class="step-content">
+            <h2>Xem Trước & Xuất CV</h2>
+            <div class="preview-actions">
+                <button type="button" class="btn-secondary" onclick="prevStep()">← Chỉnh Sửa</button>
+                <button type="button" class="btn-primary" onclick="exportPDF()">📥 Xuất PDF</button>
+                <button type="button" class="btn-secondary" onclick="clearData()">🗑️ Xóa Dữ Liệu</button>
+            </div>
+            <div id="cvPreview" class="cv-preview"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Check if user is logged in and update UI
+        const user = getCurrentUser();
+        if (user) {
+            document.getElementById('btnLogin').style.display = 'none';
+            document.getElementById('btnDashboard').style.display = 'inline-block';
+        }
+    </script>
+</body>
+</html>

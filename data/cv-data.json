@@ -1,0 +1,261 @@
+{
+  "cvs": [
+    {
+      "userId": 1,
+      "cvId": 1,
+      "createdAt": "2024-01-01T10:00:00Z",
+      "updatedAt": "2024-01-05T15:30:00Z",
+      "template": "professional",
+      "personal": {
+        "fullName": "Nguyễn Văn A",
+        "title": "Senior Software Engineer",
+        "dateOfBirth": "1990-05-15",
+        "gender": "Male",
+        "email": "nguyenvana@example.com",
+        "phone": "0123456789",
+        "address": "123 Nguyễn Huệ, Quận 1, TP.HCM",
+        "linkedin": "https://linkedin.com/in/nguyenvana",
+        "website": "https://nguyenvana.dev",
+        "github": "nguyenvana"
+      },
+      "objective": "Seeking a challenging position as a Senior Software Engineer where I can utilize my skills in full-stack development and contribute to innovative projects.",
+      "profile": "Experienced software engineer with 8+ years in web development. Proficient in JavaScript, React, Node.js, and cloud technologies.",
+      "workSkills": "Dynamic, enthusiastic, organized, with a strong sense of responsibility and a proactive attitude. Excellent communication and presentation skills.",
+      "technicalSkills": [
+        "JavaScript",
+        "React",
+        "Node.js",
+        "TypeScript",
+        "MongoDB",
+        "PostgreSQL",
+        "Docker",
+        "AWS",
+        "Git"
+      ],
+      "softSkills": [
+        "Communication",
+        "Teamwork",
+        "Problem Solving",
+        "Time Management",
+        "Leadership"
+      ],
+      "interests": [
+        "Reading technology books",
+        "Open source contribution",
+        "Traveling",
+        "Photography"
+      ],
+      "experience": [
+        {
+          "position": "Senior Software Engineer",
+          "company": "Tech Company Vietnam Co., Ltd",
+          "period": "01/2020 - Present",
+          "location": "Ho Chi Minh City",
+          "description": "Lead development team of 5 members\nDesign and implement RESTful APIs\nOptimize database performance\nMentor junior developers"
+        },
+        {
+          "position": "Full Stack Developer",
+          "company": "Startup XYZ",
+          "period": "06/2017 - 12/2019",
+          "location": "Hanoi",
+          "description": "Developed web applications using React and Node.js\nImplemented CI/CD pipelines\nCollaborated with cross-functional teams"
+        }
+      ],
+      "education": [
+        {
+          "degree": "Bachelor of Computer Science",
+          "school": "Ho Chi Minh City University of Technology",
+          "period": "2012 - 2016",
+          "achievement": "Graduated with honors, GPA: 3.8/4.0"
+        }
+      ],
+      "certifications": [
+        {
+          "name": "AWS Certified Solutions Architect",
+          "organization": "Amazon Web Services",
+          "year": "2022",
+          "level": "Associate"
+        },
+        {
+          "name": "Professional Scrum Master",
+          "organization": "Scrum.org",
+          "year": "2021",
+          "level": "PSM I"
+        }
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "proficiency": "Advanced"
+        },
+        {
+          "language": "Vietnamese",
+          "proficiency": "Native"
+        }
+      ],
+      "references": [
+        {
+          "name": "John Smith",
+          "position": "CTO at Tech Company",
+          "email": "john.smith@techcompany.com",
+          "phone": "0987654321"
+        }
+      ]
+    },
+    {
+      "userId": 2,
+      "cvId": 2,
+      "createdAt": "2024-01-15T09:00:00Z",
+      "updatedAt": "2024-01-15T09:00:00Z",
+      "template": "modern",
+      "personal": {
+        "fullName": "Trần Thị B",
+        "title": "Marketing Manager",
+        "dateOfBirth": "1992-08-20",
+        "gender": "Female",
+        "email": "tranthib@example.com",
+        "phone": "0912345678",
+        "address": "456 Lê Lợi, Quận 3, TP.HCM",
+        "linkedin": "",
+        "website": "",
+        "github": ""
+      },
+      "objective": "Aspiring to become a professional Marketing Manager with opportunities for advancement.",
+      "profile": "Creative marketing professional with 5 years of experience in digital marketing and brand management.",
+      "workSkills": "Creative, detail-oriented, excellent project management skills.",
+      "technicalSkills": [
+        "Google Analytics",
+        "SEO/SEM",
+        "Social Media Marketing",
+        "Content Marketing"
+      ],
+      "softSkills": [
+        "Creativity",
+        "Communication",
+        "Strategic Thinking"
+      ],
+      "interests": [
+        "Digital Marketing",
+        "Traveling",
+        "Cooking"
+      ],
+      "experience": [
+        {
+          "position": "Marketing Manager",
+          "company": "ABC Marketing Agency",
+          "period": "03/2021 - Present",
+          "location": "Ho Chi Minh City",
+          "description": "Manage marketing campaigns\nDevelop brand strategies\nLead team of 3 marketers"
+        }
+      ],
+      "education": [
+        {
+          "degree": "Bachelor of Marketing",
+          "school": "University of Economics Ho Chi Minh City",
+          "period": "2014 - 2018",
+          "achievement": "GPA: 3.5/4.0"
+        }
+      ],
+      "certifications": [],
+      "languages": [
+        {
+          "language": "English",
+          "proficiency": "Intermediate"
+        }
+      ],
+      "references": []
+    },
+    {
+      "userId": 3,
+      "cvId": 3,
+      "createdAt": "2024-01-20T10:00:00Z",
+      "updatedAt": "2024-01-20T10:00:00Z",
+      "template": "professional",
+      "personal": {
+        "fullName": "Phạm Thị Thu Thủy",
+        "title": "Laboratory Staff",
+        "dateOfBirth": "1992-06-10",
+        "gender": "Female",
+        "email": "thuthuy3048@gmail.com",
+        "phone": "0357419175",
+        "address": "220/27, Ward 10, Go Vap District, Ho Chi Minh City",
+        "linkedin": "",
+        "website": "",
+        "github": ""
+      },
+      "objective": "Seeking a position in a professional environment with opportunities for advancement.\nAspiring to become a professional employee.",
+      "profile": "",
+      "workSkills": "Dynamic, enthusiastic, organized, with a strong sense of responsibility and a proactive attitude.\nPatient, meticulous, honest, neat, and hardworking.\nExcellent communication and presentation skills.\nTeamwork and independent work capabilities.\nExperience and learn and ability to handle work pressure.",
+      "technicalSkills": [],
+      "softSkills": [],
+      "interests": [
+        "Reading books and newspapers, watching TV",
+        "Traveling and cooking",
+        "Socializing and making friends",
+        "Arts and sports"
+      ],
+      "experience": [
+        {
+          "position": "QC staff (Lab)",
+          "company": "Emical Feedmill Vietnam Co., Ltd",
+          "period": "1/2018 - Present",
+          "location": "Ho Chi Minh City",
+          "description": "Perform sample analysis using various laboratory methods.\nAnalyze nutritional content in raw materials and animal meal and feed products, protein, fat, fiber, moisture, ash, calcium, phosphorus, salt.\nMonitor and perform PCR process checks.\nDaily report results to the superior in laboratory."
+        },
+        {
+          "position": "QC line staff",
+          "company": "Viet My General Production and Trading Co., Ltd",
+          "period": "10/2017 - 12/2017",
+          "location": "Ho Chi Minh City",
+          "description": "Monitor and check product quality on the production line.\nSample finished products directly from the production line and maintain sample records.\nDaily quality control report preparation."
+        },
+        {
+          "position": "Lab Sr.Analyst",
+          "company": "",
+          "period": "10/2024 - Hiện tại",
+          "location": "Ho Chi Minh City",
+          "description": "Analyst of protein content in animal feed raw materials and finished products."
+        }
+      ],
+      "education": [
+        {
+          "degree": "Bachelor of Chemical Technology",
+          "school": "Ho Chi Minh City University of Food Industry",
+          "period": "10/2015 - 10/2017",
+          "achievement": "Graduated with honors, October 2017"
+        },
+        {
+          "degree": "Bachelor of Chemical Technology",
+          "school": "Binh Duong Economics and Technology University",
+          "period": "9/2010 - 10/2013",
+          "achievement": "Graduated, October 2013"
+        }
+      ],
+      "certifications": [
+        {
+          "name": "Microsoft Office Specialist",
+          "organization": "",
+          "year": "2017",
+          "level": ""
+        },
+        {
+          "name": "English Proficiency",
+          "organization": "",
+          "year": "",
+          "level": "Level B"
+        }
+      ],
+      "languages": [
+        {
+          "language": "English",
+          "proficiency": "Level B"
+        },
+        {
+          "language": "Vietnamese",
+          "proficiency": "Native"
+        }
+      ],
+      "references": []
+    }
+  ]
+}

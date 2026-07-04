@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test JSON Data</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .user-card, .cv-card {
+            background: #f8f9ff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .cv-card {
+            border-left-color: #48bb78;
+        }
+        pre {
+            background: #2d3748;
+            color: #68d391;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 5px;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test JSON Data Loading</h1>
+        <p>Kiểm tra dữ liệu từ files JSON có load được không</p>
+
+        <div>
+            <button onclick="testUsers()">Test Users.json</button>
+            <button onclick="testCVData()">Test CV-Data.json</button>
+            <button onclick="loadThuThuy()">Load Thu Thủy CV</button>
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function testUsers() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('data/users.json');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <div class="status success">
+                        ✅ Users.json loaded successfully!
+                    </div>
+                    <h3>📋 Total Users: ${data.users.length}</h3>
+                    ${data.users.map(user => `
+                        <div class="user-card">
+                            <strong>ID ${user.id}:</strong> ${user.username} 
+                            <br>📧 ${user.email}
+                            <br>🔑 Password: ${user.password}
+                        </div>
+                    `).join('')}
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="status error">
+                        ❌ Error loading users.json: ${error.message}
+                    </div>
+                    <p>Make sure you're running this on a web server (not file://)!</p>
+                `;
+            }
+        }
+
+        async function testCVData() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('data/cv-data.json');
+                const data = await response.json();
+                
+                result.innerHTML = `
+                    <div class="status success">
+                        ✅ CV-Data.json loaded successfully!
+                    </div>
+                    <h3>📄 Total CVs: ${data.cvs.length}</h3>
+                    ${data.cvs.map(cv => `
+                        <div class="cv-card">
+                            <strong>CV ID ${cv.cvId} (User ${cv.userId}):</strong> ${cv.personal.fullName}
+                            <br>💼 ${cv.personal.title}
+                            <br>🎨 Template: ${cv.template}
+                            <br>📧 ${cv.personal.email}
+                            <br>📞 ${cv.personal.phone}
+                            <br>📅 Updated: ${cv.updatedAt}
+                        </div>
+                    `).join('')}
+                    <details>
+                        <summary>View Raw JSON</summary>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </details>
+                `;
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="status error">
+                        ❌ Error loading cv-data.json: ${error.message}
+                    </div>
+                    <p>Make sure you're running this on a web server!</p>
+                `;
+            }
+        }
+
+        async function loadThuThuy() {
+            const result = document.getElementById('result');
+            try {
+                const response = await fetch('data/cv-data.json');
+                const data = await response.json();
+                
+                const thuThuyCV = data.cvs.find(cv => cv.userId === 3 && cv.cvId === 3);
+                
+                if (thuThuyCV) {
+                    result.innerHTML = `
+                        <div class="status success">
+                            ✅ Found Thu Thủy's CV!
+                        </div>
+                        <div class="cv-card">
+                            <h2>${thuThuyCV.personal.fullName}</h2>
+                            <h3>${thuThuyCV.personal.title}</h3>
+                            <p><strong>📧 Email:</strong> ${thuThuyCV.personal.email}</p>
+                            <p><strong>📞 Phone:</strong> ${thuThuyCV.personal.phone}</p>
+                            <p><strong>📍 Address:</strong> ${thuThuyCV.personal.address}</p>
+                            <p><strong>🎂 DOB:</strong> ${thuThuyCV.personal.dateOfBirth}</p>
+                            
+                            <h4>💼 Work Experience (${thuThuyCV.experience.length})</h4>
+                            ${thuThuyCV.experience.map(exp => `
+                                <div style="margin-left: 20px; margin-bottom: 10px;">
+                                    <strong>${exp.position}</strong> at ${exp.company}
+                                    <br><em>${exp.period}</em>
+                                </div>
+                            `).join('')}
+                            
+                            <h4>🎓 Education (${thuThuyCV.education.length})</h4>
+                            ${thuThuyCV.education.map(edu => `
+                                <div style="margin-left: 20px; margin-bottom: 10px;">
+                                    <strong>${edu.degree}</strong>
+                                    <br>${edu.school} (${edu.period})
+                                </div>
+                            `).join('')}
+                            
+                            <h4>📜 Certifications (${thuThuyCV.certifications.length})</h4>
+                            <ul>
+                                ${thuThuyCV.certifications.map(cert => `<li>${cert.name} ${cert.year ? '(' + cert.year + ')' : ''}</li>`).join('')}
+                            </ul>
+                        </div>
+                        <details>
+                            <summary>View Full JSON</summary>
+                            <pre>${JSON.stringify(thuThuyCV, null, 2)}</pre>
+                        </details>
+                    `;
+                } else {
+                    result.innerHTML = `
+                        <div class="status error">
+                            ❌ Thu Thủy's CV not found!
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                result.innerHTML = `
+                    <div class="status error">
+                        ❌ Error: ${error.message}
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

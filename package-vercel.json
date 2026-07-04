@@ -1,0 +1,20 @@
+{
+  "name": "cv-builder",
+  "version": "1.0.0",
+  "description": "Professional CV Builder with multiple templates, PDF export, and Vercel deployment",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "cv",
+    "builder",
+    "resume",
+    "pdf",
+    "template",
+    "vercel"
+  ],
+  "author": "",
+  "license": "MIT"
+}

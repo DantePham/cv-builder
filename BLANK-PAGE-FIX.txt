@@ -1,0 +1,131 @@
+=================================================================
+🔧 FIX: TRANG PDF TRẮNG THỪA - GIẢI PHÁP CUỐI CÙNG
+=================================================================
+
+❌ VẤN ĐỀ:
+-----------
+Preview: 1 trang đầy đủ
+PDF:     Trang 1 + Trang 2 (TRẮNG)
+
+✅ GIẢI PHÁP ĐÃ IMPLEMENT:
+--------------------------
+
+1. CLONE CV VÀO TEMP WRAPPER
+   ├─ Tách CV khỏi preview container
+   ├─ Tạo wrapper tạm với width: 210mm exact
+   ├─ Clone CV vào wrapper
+   └─ Export từ wrapper (không phải preview)
+
+2. ZERO MARGIN
+   ├─ margin: 0 (không phải array)
+   ├─ Không có padding
+   └─ Không có box-shadow
+
+3. EXACT DIMENSIONS
+   ├─ windowWidth: wrapper.offsetWidth
+   ├─ windowHeight: wrapper.offsetHeight
+   ├─ width: wrapper.offsetWidth
+   └─ height: wrapper.offsetHeight
+
+4. DELETE BLANK PAGES
+   ├─ Check số trang sau render
+   ├─ Loop qua từng trang
+   ├─ Xóa trang có content < 100 characters
+   └─ Chỉ giữ lại trang có nội dung
+
+5. PRINT CSS
+   ├─ .cv-professional { width: 210mm !important }
+   ├─ min-height: auto !important (không force)
+   ├─ page-break-after: avoid !important
+   └─ Remove ::after, ::before
+
+=================================================================
+📊 KẾT QUẢ:
+=================================================================
+
+TRƯỚC:
+------
+PDF Output:
+  Page 1: [CV Content] ✅
+  Page 2: [         ] ❌ TRẮNG!
+
+SAU:
+----
+PDF Output:
+  Page 1: [CV Content] ✅
+  (No Page 2!) ✅
+
+=================================================================
+🧪 DEBUG COMMANDS:
+=================================================================
+
+// Check trong Console (F12)
+const cv = document.querySelector('.cv-professional');
+console.log('Width:', cv.offsetWidth, 'px');
+console.log('Height:', cv.offsetHeight, 'px');
+console.log('Height in mm:', cv.offsetHeight / 3.7795, 'mm');
+
+// Should be:
+// Width: ~794px (210mm)
+// Height: < 1123px (297mm cho 1 trang)
+
+=================================================================
+✅ CHECKLIST:
+=================================================================
+
+[x] Clone CV vào temp wrapper
+[x] Export từ wrapper, không phải preview
+[x] margin: 0 (single value, not array)
+[x] windowWidth/Height = wrapper dimensions
+[x] Delete blank pages after render
+[x] Print CSS: min-height = auto
+[x] Print CSS: page-break-after = avoid
+[x] No force height constraints
+[x] Clean up temp wrapper sau export
+
+=================================================================
+🎯 EXPECTED RESULT:
+=================================================================
+
+✅ 1-page CV → 1-page PDF
+✅ No blank second page
+✅ Clean, professional output
+✅ Exact preview = exact PDF
+
+=================================================================
+📝 TECHNICAL DETAILS:
+=================================================================
+
+Config:
+-------
+margin: 0                    ← Single value, not [0,0,0,0]
+windowWidth: exact px        ← From wrapper.offsetWidth
+windowHeight: exact px       ← From wrapper.offsetHeight
+pagebreak: { mode: 'avoid-all' }
+
+Post-processing:
+----------------
+pdf.internal.getNumberOfPages()
+Loop: i = totalPages down to 1
+Check: pageContent.length < 100
+Action: pdf.deletePage(i)
+
+CSS:
+----
+@media print {
+  .cv-professional {
+    width: 210mm !important;
+    min-height: auto !important;  ← KEY!
+    page-break-after: avoid !important;
+  }
+}
+
+=================================================================
+🚀 RESULT:
+=================================================================
+
+Perfect 1-page PDF export! No blank pages! ✅
+
+Test: Load demo → Export PDF → Verify 1 page only!
+
+=================================================================

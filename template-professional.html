@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder - Professional Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #f5f5f5;
+        }
+        .template-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 20px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .preview-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .header-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .back-btn {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .back-btn:hover {
+            background: #d0d0d0;
+        }
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .template-container {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                position: static;
+                max-height: none;
+                padding: 20px;
+            }
+            .preview-container {
+                padding: 10px;
+            }
+            #cvPreview {
+                transform: scale(0.7);
+                transform-origin: top center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0;
+            }
+            .template-container {
+                padding: 0;
+            }
+            .form-container {
+                padding: 15px;
+            }
+            .form-section {
+                padding: 15px;
+            }
+            .form-section h3 {
+                font-size: 1em;
+            }
+            .form-grid {
+                grid-template-columns: 1fr !important;
+            }
+            input, textarea, select {
+                font-size: 16px; /* Prevent iOS zoom */
+            }
+            #cvPreview {
+                transform: scale(0.5);
+            }
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .header-actions button,
+            .header-actions a {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #cvPreview {
+                transform: scale(0.35);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="template-container">
+        <!-- Form Input -->
+        <div class="form-container">
+            <div class="header-actions">
+                <a href="index.html" class="back-btn">← Chọn Template Khác</a>
+                <button class="btn-primary" onclick="exportPDF()">📥 Xuất PDF</button>
+            </div>
+            
+            <h2 style="background: linear-gradient(135deg, #4FC3F7 0%, #29B6F6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 20px;">Template: Professional</h2>
+            
+            <form id="cvForm">
+                <!-- Personal Info -->
+                <div class="form-section">
+                    <h3>👤 Thông Tin Cá Nhân</h3>
+                    <div class="form-grid">
+                        <input type="text" id="fullName" placeholder="Họ và tên *" required>
+                        <input type="text" id="title" placeholder="Chức danh / Vị trí *" required>
+                        <input type="date" id="dateOfBirth" placeholder="Ngày sinh">
+                        <select id="gender">
+                            <option value="">Giới tính</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                            <option value="Other">Khác</option>
+                        </select>
+                        <input type="email" id="email" placeholder="Email *" required>
+                        <input type="tel" id="phone" placeholder="Số điện thoại *" required>
+                        <input type="text" id="address" placeholder="Địa chỉ đầy đủ">
+                        <input type="url" id="linkedin" placeholder="LinkedIn URL">
+                        <input type="url" id="website" placeholder="Website / Portfolio">
+                        <input type="text" id="github" placeholder="GitHub (nếu có)">
+                    </div>
+                </div>
+
+                <!-- Objective -->
+                <div class="form-section">
+                    <h3>🎯 Mục Tiêu Nghề Nghiệp</h3>
+                    <textarea id="objective" placeholder="Mô tả mục tiêu nghề nghiệp của bạn (2-4 câu)" rows="4"></textarea>
+                </div>
+
+                <!-- Profile -->
+                <div class="form-section">
+                    <h3>📝 Giới Thiệu Bản Thân</h3>
+                    <textarea id="profile" placeholder="Giới thiệu ngắn gọn về bản thân (3-5 câu)" rows="4"></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-section">
+                    <h3>💼 Kinh Nghiệm Làm Việc</h3>
+                    <div id="experienceList"></div>
+                    <button type="button" class="btn-add" onclick="addExperience()">+ Thêm Kinh Nghiệm</button>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3>🎓 Học Vấn</h3>
+                    <div id="educationList"></div>
+                    <button type="button" class="btn-add" onclick="addEducation()">+ Thêm Học Vấn</button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3>⚡ Kỹ Năng</h3>
+                    <label style="font-size: 0.9em; color: #666; margin-bottom: 10px; display: block;">Work Skills:</label>
+                    <textarea id="workSkills" placeholder="VD: Dynamic, enthusiastic, organized..." rows="3"></textarea>
+
+                    <label style="font-size: 0.9em; color: #666; margin: 15px 0 10px 0; display: block;">Technical Skills:</label>
+                    <textarea id="technicalSkills" placeholder="Nhập kỹ năng kỹ thuật, cách nhau bởi dấu phẩy" rows="2"></textarea>
+
+                    <label style="font-size: 0.9em; color: #666; margin: 15px 0 10px 0; display: block;">Soft Skills:</label>
+                    <textarea id="softSkills" placeholder="Kỹ năng mềm (VD: Communication, Teamwork)" rows="2"></textarea>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-section">
+                    <h3>🏆 Chứng Chỉ</h3>
+                    <div id="certificationsList"></div>
+                    <button type="button" class="btn-add" onclick="addCertification()">+ Thêm Chứng Chỉ</button>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-section">
+                    <h3>🎨 Sở Thích</h3>
+                    <textarea id="interests" placeholder="Nhập sở thích, cách nhau bởi dấu phẩy" rows="2"></textarea>
+                </div>
+
+                <!-- Languages -->
+                <div class="form-section">
+                    <h3>🌍 Ngôn Ngữ</h3>
+                    <div id="languagesList"></div>
+                    <button type="button" class="btn-add" onclick="addLanguage()">+ Thêm Ngôn Ngữ</button>
+                </div>
+
+                <!-- References -->
+                <div class="form-section">
+                    <h3>📞 Người Tham Khảo</h3>
+                    <div id="referencesList"></div>
+                    <button type="button" class="btn-add" onclick="addReference()">+ Thêm Người Tham Khảo</button>
+                </div>
+
+                <button type="button" class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="updatePreview()">
+                    🔄 Cập Nhật Preview
+                </button>
+            </form>
+        </div>
+
+        <!-- Preview -->
+        <div class="preview-container">
+            <h3 style="margin-bottom: 20px; color: #666;">Xem Trước CV</h3>
+            <div id="cvPreview" class="cv-preview"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Set current template
+        const currentTemplate = 'professional';
+    </script>
+    <script src="template-script.js"></script>
+</body>
+</html>

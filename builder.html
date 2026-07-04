@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Builder - Tạo CV & Đổi Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .mobile-toggle {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .mobile-toggle:active {
+            transform: scale(0.95);
+        }
+        .builder-container {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            height: 100vh;
+            gap: 0;
+        }
+        .form-sidebar {
+            background: white;
+            padding: 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+        }
+        .preview-area {
+            background: #e5e7eb;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .form-header h1 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 0 0 10px 0;
+        }
+        .template-switcher {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 210mm;
+        }
+        .template-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .template-tab {
+            padding: 10px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        .template-tab:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .template-tab.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-buttons button {
+            flex: 1;
+        }
+        .cv-preview-wrapper {
+            width: 210mm;
+            min-height: 297mm;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .builder-container {
+                grid-template-columns: 1fr;
+                height: auto;
+                position: relative;
+            }
+            .form-sidebar {
+                height: auto;
+                max-height: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 999;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+                overflow-y: auto;
+            }
+            .form-sidebar.active {
+                transform: translateX(0);
+            }
+            .preview-area {
+                padding: 10px;
+                width: 100%;
+            }
+            .template-switcher {
+                padding: 10px;
+            }
+            .template-tabs {
+                gap: 5px;
+            }
+            .template-tab {
+                padding: 8px 12px;
+                font-size: 0.85em;
+            }
+            .cv-preview-wrapper {
+                width: 100%;
+                transform: scale(0.7);
+                transform-origin: top center;
+            }
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-header h1 {
+                font-size: 1.2em;
+            }
+            .form-section h3 {
+                font-size: 1em;
+            }
+            .form-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .cv-preview-wrapper {
+                transform: scale(0.5);
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .action-buttons button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="builder-container">
+        <!-- Form Sidebar -->
+        <div class="form-sidebar">
+            <div class="form-header">
+                <h1>📝 Điền Thông Tin CV</h1>
+                <div id="userInfo" style="font-size: 0.85em; color: #666; margin-top: 5px; display: none;">
+                    👤 <span id="currentUserName"></span> |
+                    <a href="dashboard.html" style="color: #667eea;">Dashboard</a> |
+                    <a href="#" onclick="logout(); return false;" style="color: #ff4757;">Logout</a>
+                </div>
+                <div style="margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap;">
+                    <a href="index.html" style="color: #667eea; text-decoration: none;">← Quay lại</a>
+                    <button type="button" onclick="loadDemoData()" style="background: #667eea; color: white; border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-size: 0.85em;">
+                        📂 Load Demo (Thu Thủy)
+                    </button>
+                </div>
+            </div>
+
+            <form id="cvForm">
+                <!-- Personal Info -->
+                <div class="form-section">
+                    <h3>👤 Thông Tin Cá Nhân</h3>
+                    <div class="form-grid">
+                        <input type="text" id="fullName" placeholder="Họ và tên *" required>
+                        <input type="text" id="title" placeholder="Chức danh / Vị trí *" required>
+                        <input type="date" id="dateOfBirth" placeholder="Ngày sinh">
+                        <select id="gender">
+                            <option value="">Giới tính</option>
+                            <option value="Male">Nam</option>
+                            <option value="Female">Nữ</option>
+                        </select>
+                        <input type="email" id="email" placeholder="Email *" required>
+                        <input type="tel" id="phone" placeholder="Số điện thoại *" required>
+                        <input type="text" id="address" placeholder="Địa chỉ đầy đủ">
+                        <input type="url" id="linkedin" placeholder="LinkedIn URL">
+                        <input type="url" id="website" placeholder="Website / Portfolio">
+                        <input type="text" id="github" placeholder="GitHub">
+                    </div>
+                </div>
+
+                <!-- Objective -->
+                <div class="form-section">
+                    <h3>🎯 Mục Tiêu Nghề Nghiệp</h3>
+                    <textarea id="objective" placeholder="Mô tả mục tiêu nghề nghiệp" rows="3"></textarea>
+                </div>
+
+                <!-- Profile -->
+                <div class="form-section">
+                    <h3>📝 Giới Thiệu Bản Thân</h3>
+                    <textarea id="profile" placeholder="Giới thiệu ngắn gọn về bản thân" rows="3"></textarea>
+                </div>
+
+                <!-- Experience -->
+                <div class="form-section">
+                    <h3>💼 Kinh Nghiệm Làm Việc</h3>
+                    <div id="experienceList"></div>
+                    <button type="button" class="btn-add" onclick="addExperience()">+ Thêm Kinh Nghiệm</button>
+                </div>
+
+                <!-- Education -->
+                <div class="form-section">
+                    <h3>🎓 Học Vấn</h3>
+                    <div id="educationList"></div>
+                    <button type="button" class="btn-add" onclick="addEducation()">+ Thêm Học Vấn</button>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-section">
+                    <h3>⚡ Kỹ Năng</h3>
+                    <label style="font-size: 0.9em; color: #666; margin-bottom: 10px; display: block;">Work Skills:</label>
+                    <textarea id="workSkills" placeholder="VD: Dynamic, enthusiastic, organized..." rows="2"></textarea>
+                    
+                    <label style="font-size: 0.9em; color: #666; margin: 10px 0 5px 0; display: block;">Technical Skills:</label>
+                    <textarea id="technicalSkills" placeholder="Nhập kỹ năng, cách nhau bởi dấu phẩy" rows="2"></textarea>
+                    
+                    <label style="font-size: 0.9em; color: #666; margin: 10px 0 5px 0; display: block;">Soft Skills:</label>
+                    <textarea id="softSkills" placeholder="Kỹ năng mềm" rows="2"></textarea>
+                </div>
+
+                <!-- Certifications -->
+                <div class="form-section">
+                    <h3>🏆 Chứng Chỉ</h3>
+                    <div id="certificationsList"></div>
+                    <button type="button" class="btn-add" onclick="addCertification()">+ Thêm Chứng Chỉ</button>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-section">
+                    <h3>🎨 Sở Thích</h3>
+                    <textarea id="interests" placeholder="Nhập sở thích, cách nhau bởi dấu phẩy" rows="2"></textarea>
+                </div>
+
+                <!-- Languages -->
+                <div class="form-section">
+                    <h3>🌍 Ngôn Ngữ</h3>
+                    <div id="languagesList"></div>
+                    <button type="button" class="btn-add" onclick="addLanguage()">+ Thêm Ngôn Ngữ</button>
+                </div>
+
+                <!-- References -->
+                <div class="form-section">
+                    <h3>📞 Người Tham Khảo</h3>
+                    <div id="referencesList"></div>
+                    <button type="button" class="btn-add" onclick="addReference()">+ Thêm Người Tham Khảo</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Preview Area -->
+        <div class="preview-area">
+            <!-- Template Switcher -->
+            <div class="template-switcher">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                    <h3 style="margin: 0; color: #333;">Chọn Template:</h3>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button onclick="generateCVFromProfile()" class="btn-generate" style="background: #10b981; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9em;">
+                            ✨ Generate CV
+                        </button>
+                        <button onclick="showCopyDataModal()" class="btn-copy-data" style="background: #f59e0b; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9em;">
+                            📋 Copy Data
+                        </button>
+                    </div>
+                    </button>
+                </div>
+                <div class="template-tabs">
+                    <div class="template-tab active" data-template="professional" onclick="switchTemplate('professional')">
+                        🎯 Professional
+                    </div>
+                    <div class="template-tab" data-template="modern" onclick="switchTemplate('modern')">
+                        ✨ Modern
+                    </div>
+                    <div class="template-tab" data-template="elegant" onclick="switchTemplate('elegant')">
+                        💎 Elegant
+                    </div>
+                    <div class="template-tab" data-template="creative" onclick="switchTemplate('creative')">
+                        🎨 Creative
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary" onclick="saveToStorage()" style="background: #10b981;">💾 Lưu Thông Tin</button>
+                    <button class="btn-primary" onclick="printCV()" style="background: #48bb78; font-weight: 700;">🖨️ In PDF (Khuyến nghị)</button>
+                    <button class="btn-primary" onclick="exportPDF()" style="background: #6b7280;">📥 Tải PDF</button>
+                    <button class="btn-secondary" onclick="clearData()">🗑️ Xóa Dữ Liệu</button>
+                </div>
+            </div>
+
+            <!-- CV Preview -->
+            <div class="cv-preview-wrapper">
+                <div id="cvPreview"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-toggle" onclick="toggleForm()">📝 Form</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="auth.js"></script>
+    <script src="cv-templates.js"></script>
+    <script src="builder.js"></script>
+    <script>
+        // Display user info if logged in
+        const user = getCurrentUser();
+        if (user) {
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('currentUserName').textContent = user.username;
+        }
+
+        // Mobile form toggle
+        function toggleForm() {
+            const form = document.querySelector('.form-sidebar');
+            form.classList.toggle('active');
+        }
+
+        // Close form when clicking outside on mobile
+        document.querySelector('.preview-area')?.addEventListener('click', function(e) {
+            if (window.innerWidth <= 1024) {
+                document.querySelector('.form-sidebar').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

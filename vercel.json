@@ -1,0 +1,49 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "cv-builder/api/**/*.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "cv-builder/**/*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "cv-builder/**/*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "cv-builder/**/*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "cv-builder/**/*.json",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/save-cv",
+      "dest": "/cv-builder/api/save-cv.js"
+    },
+    {
+      "src": "/api/load-cv",
+      "dest": "/cv-builder/api/load-cv.js"
+    },
+    {
+      "src": "/api/users",
+      "dest": "/cv-builder/api/users.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/cv-builder/$1"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/cv-builder/index.html"
+    }
+  ]
+}

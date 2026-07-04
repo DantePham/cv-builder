@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "admin123",
+      "email": "admin@cvbuilder.com",
+      "createdAt": "2024-01-01T00:00:00Z"
+    },
+    {
+      "id": 2,
+      "username": "demo",
+      "password": "demo123",
+      "email": "demo@example.com",
+      "createdAt": "2024-01-15T00:00:00Z"
+    },
+    {
+      "id": 3,
+      "username": "thuthuy",
+      "password": "thuy123",
+      "email": "thuthuy3048@gmail.com",
+      "createdAt": "2024-01-20T00:00:00Z"
+    }
+  ]
+}

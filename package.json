@@ -1,0 +1,17 @@
+{
+  "name": "cv-builder",
+  "version": "1.0.0",
+  "description": "CV Builder with Node.js Backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["cv", "builder", "resume"],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}

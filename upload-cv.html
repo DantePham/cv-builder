@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload CV & Chuyển Đổi Template</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .upload-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .upload-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .upload-header h1 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            text-decoration: none;
+            margin-bottom: 20px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 15px;
+            padding: 60px 40px;
+            text-align: center;
+            background: #f8f9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 30px;
+        }
+        .upload-area:hover {
+            border-color: #5568d3;
+            background: #f0f2ff;
+        }
+        .upload-area.dragover {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+        .upload-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .upload-text {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .upload-hint {
+            color: #999;
+            font-size: 0.9em;
+        }
+        #fileInput {
+            display: none;
+        }
+        .file-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: none;
+        }
+        .file-info.show {
+            display: block;
+        }
+        .file-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .processing {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        .processing.show {
+            display: block;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .extracted-data {
+            display: none;
+            margin-top: 30px;
+        }
+        .extracted-data.show {
+            display: block;
+        }
+        .template-selector {
+            margin-bottom: 30px;
+        }
+        .template-selector h3 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .template-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+        .template-option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .template-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+        .template-option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .action-buttons button {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <a href="index.html" class="back-link">← Quay lại trang chủ</a>
+        
+        <div class="upload-header">
+            <h1>📤 Upload CV & Chuyển Đổi</h1>
+            <p>Tải CV PDF lên và chuyển sang template mới</p>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📄</div>
+            <div class="upload-text">Kéo thả file PDF vào đây</div>
+            <div class="upload-hint">hoặc click để chọn file</div>
+            <input type="file" id="fileInput" accept=".pdf">
+        </div>
+
+        <!-- File Info -->
+        <div class="file-info" id="fileInfo">
+            <div class="file-name" id="fileName"></div>
+            <button class="btn-primary" onclick="processFile()">Xử Lý File</button>
+        </div>
+
+        <!-- Processing -->
+        <div class="processing" id="processing">
+            <div class="spinner"></div>
+            <p>Đang trích xuất thông tin từ PDF...</p>
+        </div>
+
+        <!-- Extracted Data & Template Selection -->
+        <div class="extracted-data" id="extractedData">
+            <div class="template-selector">
+                <h3>Chọn Template Mới:</h3>
+                <div class="template-options">
+                    <div class="template-option" data-template="modern" onclick="selectTemplate('modern')">
+                        <div style="font-size: 2em; margin-bottom: 10px;">🎨</div>
+                        <div>Modern</div>
+                    </div>
+                    <div class="template-option" data-template="classic" onclick="selectTemplate('classic')">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📋</div>
+                        <div>Classic</div>
+                    </div>
+                    <div class="template-option" data-template="creative" onclick="selectTemplate('creative')">
+                        <div style="font-size: 2em; margin-bottom: 10px;">✨</div>
+                        <div>Creative</div>
+                    </div>
+                    <div class="template-option" data-template="minimal" onclick="selectTemplate('minimal')">
+                        <div style="font-size: 2em; margin-bottom: 10px;">📄</div>
+                        <div>Minimal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn-secondary" onclick="location.reload()">Upload File Khác</button>
+                <button class="btn-primary" id="convertBtn" onclick="convertToTemplate()" disabled>Chuyển Đổi Template</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="upload-cv.js"></script>
+</body>
+</html>
