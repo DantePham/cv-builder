@@ -196,25 +196,18 @@
       ],
       "experience": [
         {
+          "position": "Lab Sr. Analyst",
+          "company": "Company Name",
+          "period": "10/2024 - Present",
+          "location": "Ho Chi Minh City",
+          "description": "Protein analysis in raw materials and animal feed ingredients.\nTVN (Total Volatile Nitrogen) rapid analysis to assess freshness and spoilage levels of animal-origin materials.\nPepsin analysis: reflecting protein digestibility and nutritional value that livestock can absorb."
+        },
+        {
           "position": "QC staff (Lab)",
           "company": "Emical Feedmill Vietnam Co., Ltd",
           "period": "1/2018 - Present",
           "location": "Ho Chi Minh City",
           "description": "Perform sample analysis using various laboratory methods.\nAnalyze nutritional content in raw materials and animal meal and feed products, protein, fat, fiber, moisture, ash, calcium, phosphorus, salt.\nMonitor and perform PCR process checks.\nDaily report results to the superior in laboratory."
-        },
-        {
-          "position": "QC line staff",
-          "company": "Viet My General Production and Trading Co., Ltd",
-          "period": "10/2017 - 12/2017",
-          "location": "Ho Chi Minh City",
-          "description": "Monitor and check product quality on the production line.\nSample finished products directly from the production line and maintain sample records.\nDaily quality control report preparation."
-        },
-        {
-          "position": "Lab Sr.Analyst",
-          "company": "",
-          "period": "10/2024 - Hiện tại",
-          "location": "Ho Chi Minh City",
-          "description": "Analyst of protein content in animal feed raw materials and finished products."
         }
       ],
       "education": [
